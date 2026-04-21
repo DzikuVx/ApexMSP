@@ -14,15 +14,14 @@ Works on any platform that provides an Arduino `Stream` — AVR, ESP32, ESP8266,
 
 ## Installation
 
-### Arduino IDE (Library Manager)
-Search for **ApexMSP** and click *Install*.
-
-### Manual
-Download the ZIP, then in the Arduino IDE choose **Sketch → Include Library → Add .ZIP Library**.
+### Arduino IDE (manual ZIP import)
+1. Go to the [Releases](https://github.com/dzikuvx/ApexMSP/releases) page and download the latest `.zip` file (or use **Code → Download ZIP** from the repository root).
+2. In the Arduino IDE choose **Sketch → Include Library → Add .ZIP Library…** and select the downloaded file.
+3. The library is now available under **Sketch → Include Library → ApexMSP**.
 
 ### PlatformIO
 ```ini
-lib_deps = https://github.com/pspychalski/ApexMSP
+lib_deps = https://github.com/dzikuvx/ApexMSP
 ```
 
 ## Wiring
