@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/ ls-files)",
+      "Bash(mkdir -p /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/src)",
+      "Bash(mv /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/msp.h /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/src/msp.h)",
+      "Bash(mv /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/msp.cpp /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/src/msp.cpp)",
+      "Bash(mv /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/msp_inav.h /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/src/msp_inav.h)",
+      "Bash(mkdir -p /c/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/examples/BasicRequest)"
+    ]
+  }
+}
