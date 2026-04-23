@@ -1,0 +1,35 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "C:/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/src",
+                "C:/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/test/mocks",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "C:/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/src",
+                    "C:/Users/pspyc/OneDrive/Dokumenty/PlatformIO/Projects/ApexMSP/test/mocks",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60119",
+                ""
+            ],
+            "cppStandard": "c++14",
+            "compilerPath": "C:/Users/pspyc/.platformio/packages/toolchain-gccmingw32/bin/gcc.exe",
+            "compilerArgs": [
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
