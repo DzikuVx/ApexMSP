@@ -17,39 +17,27 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
 #pragma once
 
 #include <Arduino.h>
 #include <Stream.h>
 
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
+// MSP2 header size (without payload)
+#define MSP2_HEADER_SIZE 9
 
 class MSP {
   
   public:
 
     void begin(Stream & stream, uint32_t timeout = 500);
-
-    // low level functions
-
     void send(uint16_t messageID, void * payload, uint16_t size);
     bool recv(uint16_t *messageID, void * payload, uint16_t maxSize, uint16_t *recvSize);
-
     bool waitFor(uint16_t messageID, void * payload, uint16_t maxSize, uint16_t *recvSize = NULL);
-    
     bool request(uint16_t messageID, void * payload, uint16_t maxSize, uint16_t *recvSize = NULL);
-
     bool command(uint16_t messageID, void * payload, uint16_t size, bool waitACK = true);
-
     void reset();
-
-    // high level functions
-    
     bool getActiveModes(uint32_t * activeModes);
     
-
   private:
   
     Stream * _stream;
