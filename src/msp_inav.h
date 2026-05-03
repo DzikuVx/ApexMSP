@@ -112,43 +112,6 @@
 #define INAV_MSP_SET_WP                       209
 #define INAV_MSP_SET_HEAD                     211
 
-
-// ============================================================
-// Active mode bit positions (for getActiveModes() return value)
-// ============================================================
-
-#define INAV_MSP_MODE_ARM          0
-#define INAV_MSP_MODE_ANGLE        1
-#define INAV_MSP_MODE_HORIZON      2
-#define INAV_MSP_MODE_NAVALTHOLD   3
-#define INAV_MSP_MODE_MAG          4
-#define INAV_MSP_MODE_HEADFREE     5
-#define INAV_MSP_MODE_HEADADJ      6
-#define INAV_MSP_MODE_CAMSTAB      7
-#define INAV_MSP_MODE_NAVRTH       8
-#define INAV_MSP_MODE_NAVPOSHOLD   9
-#define INAV_MSP_MODE_PASSTHRU    10
-#define INAV_MSP_MODE_BEEPERON    11
-#define INAV_MSP_MODE_LEDLOW      12
-#define INAV_MSP_MODE_LLIGHTS     13
-#define INAV_MSP_MODE_OSD         14
-#define INAV_MSP_MODE_TELEMETRY   15
-#define INAV_MSP_MODE_GTUNE       16
-#define INAV_MSP_MODE_SONAR       17
-#define INAV_MSP_MODE_BLACKBOX    18
-#define INAV_MSP_MODE_FAILSAFE    19
-#define INAV_MSP_MODE_NAVWP       20
-#define INAV_MSP_MODE_AIRMODE     21
-#define INAV_MSP_MODE_HOMERESET   22
-#define INAV_MSP_MODE_GCSNAV      23
-#define INAV_MSP_MODE_HEADINGLOCK 24
-#define INAV_MSP_MODE_SURFACE     25
-#define INAV_MSP_MODE_FLAPERON    26
-#define INAV_MSP_MODE_TURNASSIST  27
-#define INAV_MSP_MODE_NAVLAUNCH   28
-#define INAV_MSP_MODE_AUTOTRIM    29
-
-
 // ============================================================
 // Status sensor flags (INAV_msp_status_t.sensor / INAV_msp_status_ex_t.sensor)
 // ============================================================
