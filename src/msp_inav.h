@@ -94,6 +94,7 @@
 #define INAV_MSP_ANALOG                       110
 #define INAV_MSP_RC_TUNING                    111
 #define INAV_MSP_PID                          112
+#define INAV_MSP_ACTIVEBOXES                  113
 #define INAV_MSP_MISC                         114
 #define INAV_MSP_BOXIDS                       119
 #define INAV_MSP_SERVO_CONFIGURATIONS         120
@@ -560,6 +561,14 @@ struct INAV_msp_pid_t {
   uint8_t level[3];    // 0=P, 1=I, 2=D
   uint8_t heading[3];  // 0=P, 1=I, 2=D
   uint8_t vel_z[3];    // 0=P, 1=I, 2=D
+} __attribute__((packed));
+
+
+// INAV_MSP_ACTIVEBOXES reply — variable-length; one bit per box, LSB first.
+// Byte count = ceil(number_of_boxes / 8). Use INAV_MSP_BOXIDS to map bit
+// positions to box IDs.
+struct INAV_msp_activeboxes_t {
+  uint8_t flags[8];  // up to 64 boxes; actual length determined by frame size
 } __attribute__((packed));
 
 

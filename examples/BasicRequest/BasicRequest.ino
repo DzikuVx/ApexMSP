@@ -15,12 +15,16 @@
 #include <msp.h>
 #include <msp_inav.h>
 
+#define FC_RX_PIN 10  // ESP32C3 pin connected to FC TX
+#define FC_TX_PIN 8   // ESP32C3 pin connected to FC RX
+
 MSP msp;
 
 void setup()
 {
   Serial.begin(115200);
-  Serial1.begin(115200);          // serial port connected to FC
+
+  Serial1.begin(115200, SERIAL_8N1, FC_RX_PIN, FC_TX_PIN);
   msp.begin(Serial1, 500);        // 500 ms timeout
 }
 
@@ -50,14 +54,6 @@ void loop()
   if (msp.request(INAV_MSP_ANALOG, &analog, sizeof(analog))) {
     Serial.print("Vbat: "); Serial.print(analog.vbat / 10.0f, 1);
     Serial.print(" V  mAh drawn: "); Serial.println(analog.mAhDrawn);
-  }
-
-  // --- Active flight modes ---
-  uint32_t modes = 0;
-  if (msp.getActiveModes(&modes)) {
-    Serial.print("Armed: ");    Serial.print((modes >> INAV_MSP_MODE_ARM)   & 1);
-    Serial.print("  Angle: ");  Serial.print((modes >> INAV_MSP_MODE_ANGLE) & 1);
-    Serial.print("  RTH: ");    Serial.println((modes >> INAV_MSP_MODE_NAVRTH) & 1);
   }
 
   Serial.println("---");

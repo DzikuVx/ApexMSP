@@ -181,11 +181,10 @@ bool MSP::command(uint16_t messageID, void *payload, uint16_t size, bool waitACK
   return true;
 }
 
-bool MSP::checkFlightMode(const flight_mode_definition_t *defs, uint8_t defCount, const uint8_t bitmap[8], uint8_t permanentId)
+bool MSP::checkFlightMode(const uint8_t *boxIdMap, uint8_t boxIdCount, const uint8_t bitmap[8], uint8_t permanentId)
 {
-  for (uint8_t i = 0; i < defCount; i++) {
-    if (defs[i].permanentId == permanentId) {
-      uint8_t bit = defs[i].boxId;
+  for (uint8_t bit = 0; bit < boxIdCount; bit++) {
+    if (boxIdMap[bit] == permanentId) {
       return (bitmap[bit >> 3] & (uint8_t)(1u << (bit & 7))) != 0;
     }
   }

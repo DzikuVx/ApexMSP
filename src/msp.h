@@ -43,7 +43,7 @@ class MSP {
     bool command(uint16_t messageID, void * payload, uint16_t size, bool waitACK = true);
     void reset();
     bool getActiveModes(uint32_t * activeModes);
-    static bool checkFlightMode(const flight_mode_definition_t *defs, uint8_t defCount, const uint8_t bitmap[8], uint8_t permanentId);
+    static bool checkFlightMode(const uint8_t *boxIdMap, uint8_t boxIdCount, const uint8_t bitmap[8], uint8_t permanentId);
     
   private:
   
