@@ -39,6 +39,13 @@
             "toolchainBinDir": "C:/Users/pspyc/.platformio/packages/toolchain-gccmingw32/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
+        },
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Flash ActiveFlightModesBTFL → ESP32-C3 COM4",
+            "command": "C:\\Users\\pspyc\\.platformio\\penv\\Scripts\\pio.exe run --environment esp32c3 --target upload",
+            "cwd": "${workspaceFolder}/examples/ActiveFlightModesBTFL"
         }
     ]
 }

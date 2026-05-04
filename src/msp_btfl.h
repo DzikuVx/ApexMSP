@@ -6,9 +6,7 @@
 
   Flight mode bitmap extraction differs from INAV: Betaflight has no dedicated
   MSP_ACTIVEBOXES command. Instead, flight mode bits are packed into MSP_STATUS /
-  MSP_STATUS_EX responses. Use btflExtractFlightModeBitmap() to pull the 8-byte
-  bitmap out of the raw response buffer, then pass it to MSP::checkFlightMode()
-  exactly as you would with INAV.
+  MSP_STATUS_EX responses.
 
   MSP_BOXIDS (119) works identically in both firmwares.
 */
@@ -46,24 +44,6 @@
 // Use a raw buffer of at least 32 bytes to capture the whole fixed section plus
 // any extension bytes.
 // ============================================================
-
-// Extract the 8-byte flight mode bitmap from a raw MSP_STATUS or MSP_STATUS_EX
-// response buffer. Returns false if bufLen is too short to contain the header.
-static inline bool btflExtractFlightModeBitmap(const uint8_t *buf, uint16_t bufLen, uint8_t bitmap[8])
-{
-    if (bufLen < 16) return false;
-
-    memset(bitmap, 0, 8);
-    memcpy(bitmap, buf + 6, 4);                 // first 32 bits at offset 6
-
-    const uint8_t extCount = buf[15] & 0x0F;   // low nibble = extension byte count
-    if (extCount > 0 && bufLen >= (uint16_t)(16 + extCount)) {
-        // copy up to 4 more bytes (filling bitmap[4..7])
-        const uint8_t copyBytes = extCount < 4 ? extCount : 4;
-        memcpy(bitmap + 4, buf + 16, copyBytes);
-    }
-    return true;
-}
 
 // ============================================================
 // Flight mode permanent IDs
@@ -203,7 +183,17 @@ public:
         uint16_t recvSize = 0;
         memset(rawBuf, 0, sizeof(rawBuf));
         if (!request(BTFL_MSP_STATUS_EX, rawBuf, sizeof(rawBuf), &recvSize)) return false;
-        return btflExtractFlightModeBitmap(rawBuf, recvSize, _bitmap);
+        if (recvSize < 16) return false;
+
+        memset(_bitmap, 0, sizeof(_bitmap));
+        memcpy(_bitmap, rawBuf + 6, 4);
+
+        const uint8_t extCount = rawBuf[15] & 0x0F;
+        if (extCount > 0 && recvSize >= (uint16_t)(16 + extCount)) {
+            const uint8_t copyBytes = extCount < 4 ? extCount : 4;
+            memcpy(_bitmap + 4, rawBuf + 16, copyBytes);
+        }
+        return true;
     }
 
     bool isFlightModeActive(uint8_t permanentId) const {

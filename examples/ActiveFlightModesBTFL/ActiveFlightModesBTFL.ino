@@ -6,8 +6,7 @@
   to the USB serial monitor every 500 ms.
 
   Betaflight has no dedicated ACTIVEBOXES command. Flight mode bits are
-  packed inside MSP_STATUS_EX; btflExtractFlightModeBitmap() pulls them
-  into an 8-byte bitmap compatible with MSP::checkFlightMode().
+  packed inside MSP_STATUS_EX; 
 
   Bit positions in the bitmap are FC-specific; BTFL_MSP_BOXIDS (frame 119)
   is queried first to build the actual bit→permanentId mapping.
