@@ -44,7 +44,7 @@ MSP msp;
 
 void setup() {
   Serial.begin(115200);
-  Serial1.begin(115200);
+  Serial1.begin(115200, SERIAL_8N1, 10, 8); //Flight controller connected on pins 10 and 8
   msp.begin(Serial1);           // default 500 ms timeout
 
   INAV_msp_attitude_t att;
