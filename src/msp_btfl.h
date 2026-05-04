@@ -179,3 +179,41 @@ const flight_mode_definition_t BTFL_MODE_DEFS[] = {
 };
 
 const uint8_t BTFL_MODE_DEFS_COUNT = sizeof(BTFL_MODE_DEFS) / sizeof(BTFL_MODE_DEFS[0]);
+
+class MspBTFL : public MSP {
+public:
+    MspBTFL() : _boxIdCount(0), _boxIdsLoaded(false) {
+        memset(_boxIdMap, 0, sizeof(_boxIdMap));
+        memset(_bitmap,   0, sizeof(_bitmap));
+    }
+
+    bool loadBoxIds() {
+        uint16_t recvSize = 0;
+        if (!request(BTFL_MSP_BOXIDS, _boxIdMap, sizeof(_boxIdMap), &recvSize)) {
+            _boxIdsLoaded = false;
+            return false;
+        }
+        _boxIdCount   = recvSize < sizeof(_boxIdMap) ? (uint8_t)recvSize : (uint8_t)sizeof(_boxIdMap);
+        _boxIdsLoaded = true;
+        return true;
+    }
+
+    bool loadActiveFlightModes() {
+        uint8_t rawBuf[32];
+        uint16_t recvSize = 0;
+        memset(rawBuf, 0, sizeof(rawBuf));
+        if (!request(BTFL_MSP_STATUS_EX, rawBuf, sizeof(rawBuf), &recvSize)) return false;
+        return btflExtractFlightModeBitmap(rawBuf, recvSize, _bitmap);
+    }
+
+    bool isFlightModeActive(uint8_t permanentId) const {
+        if (!_boxIdsLoaded) return false;
+        return checkFlightMode(_boxIdMap, _boxIdCount, _bitmap, permanentId);
+    }
+
+private:
+    uint8_t _boxIdMap[64];
+    uint8_t _boxIdCount;
+    uint8_t _bitmap[8];
+    bool    _boxIdsLoaded;
+};

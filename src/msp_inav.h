@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include "msp.h"
 
 // ============================================================
 // INAV MSP Frame IDs
@@ -891,3 +892,41 @@ const uint8_t INAV_MODE_DEFS_COUNT = sizeof(INAV_MODE_DEFS) / sizeof(INAV_MODE_D
 
 extern const flight_mode_definition_t INAV_MODE_DEFS[];
 extern const uint8_t INAV_MODE_DEFS_COUNT;
+
+class MspINAV : public MSP {
+public:
+    MspINAV() : _boxIdCount(0), _boxIdsLoaded(false) {
+        memset(_boxIdMap, 0, sizeof(_boxIdMap));
+        memset(_bitmap,   0, sizeof(_bitmap));
+    }
+
+    bool loadBoxIds() {
+        uint16_t recvSize = 0;
+        if (!request(INAV_MSP_BOXIDS, _boxIdMap, sizeof(_boxIdMap), &recvSize)) {
+            _boxIdsLoaded = false;
+            return false;
+        }
+        _boxIdCount   = recvSize < sizeof(_boxIdMap) ? (uint8_t)recvSize : (uint8_t)sizeof(_boxIdMap);
+        _boxIdsLoaded = true;
+        return true;
+    }
+
+    bool loadActiveFlightModes() {
+        INAV_msp_activeboxes_t boxes;
+        memset(&boxes, 0, sizeof(boxes));
+        if (!request(INAV_MSP_ACTIVEBOXES, &boxes, sizeof(boxes))) return false;
+        memcpy(_bitmap, boxes.flags, sizeof(_bitmap));
+        return true;
+    }
+
+    bool isFlightModeActive(uint8_t permanentId) const {
+        if (!_boxIdsLoaded) return false;
+        return checkFlightMode(_boxIdMap, _boxIdCount, _bitmap, permanentId);
+    }
+
+private:
+    uint8_t _boxIdMap[64];
+    uint8_t _boxIdCount;
+    uint8_t _bitmap[8];
+    bool    _boxIdsLoaded;
+};
