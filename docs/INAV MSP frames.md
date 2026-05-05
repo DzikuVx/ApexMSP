@@ -3383,7 +3383,6 @@ Response payload:
 typedef struct __attribute__((packed)) {
     uint16_t cycle_time;
     uint16_t i2c_get_error_counter;
-    uint16_t field;
     uint16_t sensor_status;
     uint16_t average_system_load_percent;
     uint8_t get_config_profile;
