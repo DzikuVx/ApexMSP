@@ -107,6 +107,9 @@
 #define INAV_MSP_GPSSVINFO                    164
 #define INAV_MSP_GPSSTATISTICS                166
 
+// MSP2 INAV frames
+#define INAV_MSP2_INAV_STATUS              0x2000
+
 // Commands
 #define INAV_MSP_SET_RAW_RC                   200
 #define INAV_MSP_SET_RAW_GPS                  201
@@ -417,6 +420,19 @@ struct INAV_msp_status_t {
   uint16_t sensor;           // INAV_MSP_STATUS_SENSOR_...
   uint32_t flightModeFlags;  // see INAV_MSP_MODE_...
   uint8_t  configProfileIndex;
+} __attribute__((packed));
+
+
+// INAV_MSP2_INAV_STATUS reply
+struct INAV_msp2_inav_status_t {
+  uint16_t cycleTime;
+  uint16_t i2cErrorCounter;
+  uint16_t sensorStatus;
+  uint16_t averageSystemLoadPercent;
+  uint8_t  configProfileIndex;
+  uint32_t armingFlags;
+  uint8_t  msp_box_mode_flags_bytes[8];
+  uint8_t  configMixerProfile;
 } __attribute__((packed));
 
 
